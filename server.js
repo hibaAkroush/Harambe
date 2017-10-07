@@ -175,9 +175,6 @@ app.get('/favorit', function(req,res){
         console.log('hiiiiiiiiiiii')
         console.log(result)
         favoritarr.push(result[0])
-        //here we should use for loop to fetch all movie array but unfortunately we faced problem with async issue
-       // 
-       
       })
      }
      

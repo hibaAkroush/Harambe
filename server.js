@@ -157,19 +157,72 @@ app.get('/favoritelist',function(req,res){
   else
     res.redirect('/login')
 })
+//handling post request for movie data
+//--------------------------------------------------add new movie to  watchlist
+app.post('/add2',function(req,res){
+ 
+  if(req.session.username){ 
+  //prepare record 
+  var record = new Movie ({
+    id:req.body.id,
+    title:req.body.title,
+    poster_path:req.body.poster_path
+  });
 
+//add it to database
+record.save( function(error, newMovie){
+  var username = req.session.username;
+  if(error){
+    throw error;
+  }
+
+  User.findOne({username: username} , function(err, user){
+    if (err)
+     console.log('error in find =========>', err)
+
+      user.watchlist.push(newMovie._id);
+     console.log('user in find =========>', user.watchlist)
+     User.findOneAndUpdate({username: username} ,{watchlist: user.watchlist},function(err , updated){
+      if(err)
+        console.log(err);
+      else{
+        console.log('updated watchlist---------------> ',updated)
+      }
+    })
+   });
+}); 
+console.log('added')
+  res.send('done');
+}
+else // if the user not logged in
+{
+  console.log ('>>>>>>>>>> rejected');
+  res.redirect('/login')
+}
+});
+
+//--------------------------------------------------------------------------------------
+app.get('/watchlist',function(req,res){
+  if (req.session.username){
+    res.sendFile(__dirname+'/views/watchedlist.html')            
+  }
+  else
+    res.redirect('/login')
+})
+
+//-------------------------------------------------------------------------------------------
 
 //fetch data from database
 app.get('/favorit', function(req,res){
   
   console.log('hi')
-  User.find({username:req.session.username},"movies",function(err,newMovie){
+  User.find({username:req.session.username},"watchlist",function(err,newMovie){
     if(err)
       throw err;
-    console.log(newMovie[0].movies)
+    console.log(newMovie[0].watchlist)
     var favoritarr=[];
-     for (var i=0;i<newMovie[0].movies.length;i++){
-        Movie.find({_id:newMovie[0].movies[i]},function(err,result){
+     for (var i=0;i<newMovie[0].watchlist.length;i++){
+        Movie.find({_id:newMovie[0].watchlist[i]},function(err,result){
         if(err)
           throw err;
         console.log('hiiiiiiiiiiii')

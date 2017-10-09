@@ -7,14 +7,15 @@ angular.module('myapp')
 			var obj={id:id,title:title,poster_path:poster_path};
 			//checking for username
 		    $.ajax({
-              		async:false,
-              		url: "http://127.0.0.1:8080/session",
-              		cache: false,
-              		dataType: 'json',
-              		success: function(user){
-              			session=user;
-              		}
-           	});
+				async:false,
+				url: "http://127.0.0.1:8080/session",
+				cache: false,
+				dataType: 'json',
+				success: function(user){
+					session=user;
+				}
+			   });
+		// we need to move this inside success of previous ajax request
 			console.log(session)
 			if(session===undefined || session===null){
 				alert('you are not allowed to add favorite')
@@ -28,7 +29,7 @@ angular.module('myapp')
              });
              alert('added to favorite')
 			}
-			}
+		}
 			
 	},
     bindings:{

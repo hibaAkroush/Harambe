@@ -5,7 +5,7 @@ angular.module('watched',[])
 		var x=this;
 		 $.ajax({
   		 	  async:false,
-              url: "http://127.0.0.1:8080/favorit",
+              url: "http://127.0.0.1:8080/watched",
               cache: false,
               dataType: 'json',
               success: function(data){
@@ -16,4 +16,4 @@ angular.module('watched',[])
 	},
 
 	templateUrl: 'public/templates/watchentry.html'
-}
+})

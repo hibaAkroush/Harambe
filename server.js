@@ -102,7 +102,7 @@ app.post('/signUp', function(req, res) {
 
 
 
-//handling post request for movie data
+//---1---handling post request for movie data
 app.post('/add',function(req,res){
  
   if(req.session.username){ 
@@ -149,7 +149,7 @@ else // if the user not logged in
 
 
 
-
+//---2---get data  
 app.get('/favoritelist',function(req,res){
   if (req.session.username){
     res.sendFile(__dirname+'/views/favoritelist.html')            
@@ -157,8 +157,40 @@ app.get('/favoritelist',function(req,res){
   else
     res.redirect('/login')
 })
-//handling post request for movie data
-//--------------------------------------------------add new movie to  watchlist
+
+
+//---3---fetch data from database
+app.get('/favorit', function(req,res){
+  
+  console.log('hi ---------- from favorit ')
+  User.find({username:req.session.username},"movies",function(err,newMovie){
+    if(err)
+      throw err;
+    console.log(newMovie[0].movies)
+    var favoritarr=[];
+     for (var i=0;i<newMovie[0].movies.length;i++){
+        Movie.find({_id:newMovie[0].movies[i]},function(err,result){
+        if(err)
+          throw err;
+        console.log('hiiiiiiiiiiii  from the favorit')
+        console.log(result)
+        favoritarr.push(result[0])
+      })
+     }
+     
+     setTimeout(function(){
+        console.log('result')
+        console.log(favoritarr)
+        res.send(JSON.stringify(favoritarr))
+     }, 500);
+     
+  })
+ 
+
+})
+//.............................................................................
+//add new for watched list 
+//---1---handling post request for movie data
 app.post('/add2',function(req,res){
  
   if(req.session.username){ 
@@ -186,7 +218,7 @@ record.save( function(error, newMovie){
       if(err)
         console.log(err);
       else{
-        console.log('updated watchlist---------------> ',updated)
+        console.log('updated---------------> ',updated)
       }
     })
    });
@@ -201,8 +233,12 @@ else // if the user not logged in
 }
 });
 
-//--------------------------------------------------------------------------------------
-app.get('/watchlist',function(req,res){
+
+
+
+
+//---2---get data from 
+app.get('/watchedlist',function(req,res){
   if (req.session.username){
     res.sendFile(__dirname+'/views/watchedlist.html')            
   }
@@ -210,38 +246,37 @@ app.get('/watchlist',function(req,res){
     res.redirect('/login')
 })
 
-//-------------------------------------------------------------------------------------------
 
-//fetch data from database
-app.get('/favorit', function(req,res){
+//---3---fetch data from database
+app.get('/watched', function(req,res){
   
-  console.log('hi')
+  console.log('hi from watched')
   User.find({username:req.session.username},"watchlist",function(err,newMovie){
     if(err)
       throw err;
     console.log(newMovie[0].watchlist)
-    var favoritarr=[];
+    var watchedarr=[];
      for (var i=0;i<newMovie[0].watchlist.length;i++){
         Movie.find({_id:newMovie[0].watchlist[i]},function(err,result){
         if(err)
           throw err;
-        console.log('hiiiiiiiiiiii')
+        console.log('hiiiiiiiiiiii  from watched')
         console.log(result)
-        favoritarr.push(result[0])
+        watchedarr.push(result[0])
       })
      }
      
      setTimeout(function(){
         console.log('result')
-        console.log(favoritarr)
-        res.send(JSON.stringify(favoritarr))
-     }, 500);
+        console.log(watchedarr)
+        res.send(JSON.stringify(watchedarr))
+     }, 1000);
      
   })
  
 
 })
-
+//................................................................................
 app.listen(port,function(err){
   console.log('connected');
 });

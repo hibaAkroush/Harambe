@@ -17,6 +17,7 @@ angular.module('myapp',[])
 		this.trailer=[]; 
 		this.movie=[];
 		this.id=undefined;
+		
 		this.change=function(){
 			//convert the name to id
 			var text=this.input.val.value

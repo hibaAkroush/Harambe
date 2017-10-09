@@ -27,6 +27,7 @@ app.use(session({
 
 app.get('/', util.checkUser, function(req, res) {
   res.sendFile(__dirname+'/index.html');
+
 });
 
 app.get('/login', function(req, res) {
@@ -269,9 +270,6 @@ module.exports = app;
 //    console.log("record added");
 //     }
 // });
-
-
-
 
 
 

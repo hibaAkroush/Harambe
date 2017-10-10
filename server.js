@@ -270,7 +270,7 @@ app.get('/watched', function(req,res){
         console.log('result')
         console.log(watchedarr)
         res.send(JSON.stringify(watchedarr))
-     }, 1000);
+     }, 100);
      
   })
  

@@ -15,5 +15,5 @@ angular.module('watched',[])
             })
 	},
 
-	templateUrl: 'public/templates/watchentry.html'
+	templateUrl: 'public/templates/watchedlist.html'
 })

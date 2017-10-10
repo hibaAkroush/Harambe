@@ -11,9 +11,17 @@
 		<div ><img src={{movie.poster}}></div>
 		<div >{{movie.title}}</div>
 		<div >{{movie.date}}</div>
+
 	</div>	
 </div>
 
 <div>
-<list movie='$ctrl.movie' trailer='$ctrl.trailer' user="$ctrl.user" />
+<list movie='$ctrl.movie' trailer='$ctrl.trailer' user="$ctrl.user" recomendedMovie="$ctrl.recomendedMovie"/>
+</div>
+	
+<div>
+
+<img src={{$ctrl.recomendedMovie.poster}}>
+<p>{{$ctrl.recomendedMovie.title}}</p>
+<p>{{$ctrl.recomendedMovie.date}}</p>
 </div>

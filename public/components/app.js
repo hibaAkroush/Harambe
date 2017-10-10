@@ -2,31 +2,31 @@ angular.module('myapp',[])
 .component('app',{
 	controller:function(){ 
 		var x=this;
-		// $.ajax({
-		// 	async:false,
-		// 	url: "https://api.themoviedb.org/3/movie/now_playing?api_key=8081cb4893843ff570504c531dd99fe9&language=en-US&page=1",
-		// 	cache: false,
-		// 	dataType: 'json',
-		// 	success: function(data){
-		// 		body = data
-		// 		  	var theaters = [];
-		// 		  	//"http://image.tmdb.org/t/p/w185/"+body.results.
-		// 	    	RandIndex = Math.ceil(Math.random()*15)
-		// 		    for (var i = RandIndex; i < RandIndex + 4; i++) {
-		// 		    	var object = {};
-		// 		    	object.poster = "http://image.tmdb.org/t/p/w185/"+ body.results[i].poster_path
-		// 		    	object.title = body.results[i].original_title
-		// 		    	object.date = body.results[i].release_date
-		// 		    	theaters.push(object)
-		// 		    }
-		// 		    x.list = theaters
+		$.ajax({
+			async:false,
+			url: "https://api.themoviedb.org/3/movie/now_playing?api_key=8081cb4893843ff570504c531dd99fe9&language=en-US&page=1",
+			cache: false,
+			dataType: 'json',
+			success: function(data){
+				body = data
+				  	var theaters = [];
+				  	//"http://image.tmdb.org/t/p/w185/"+body.results.
+			    	RandIndex = Math.ceil(Math.random()*15)
+				    for (var i = RandIndex; i < RandIndex + 4; i++) {
+				    	var object = {};
+				    	object.poster = "http://image.tmdb.org/t/p/w185/"+ body.results[i].poster_path
+				    	object.title = body.results[i].original_title
+				    	object.date = body.results[i].release_date
+				    	theaters.push(object)
+				    }
+				    x.list = theaters
 
-		// 	},
-		// 	error: function(){
-		// 		console.log("error")
-		// 	}
+			},
+			error: function(){
+				console.log("error")
+			}
 
-		// })
+		})
 		this.user=''
 		 $.ajax({
               		async:false,

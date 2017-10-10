@@ -27,18 +27,19 @@ angular.module('myapp',[])
 		// 	}
 
 		// })
+
 		this.user=''
 		 $.ajax({
-              		async:false,
-              		url: "http://127.0.0.1:8080/session",
-              		cache: false,
-              		dataType: 'json',
-              		success: function(user){
-              			//console.log(user);
-              			x.user=user;
-              		}
-              	});
-		//console.log(this.user)
+			async:false,
+			url: "http://127.0.0.1:8080/session",
+			cache: false,
+			dataType: 'json',
+			success: function(user){
+				console.log(user);
+				x.user=user;
+			}
+        });
+		console.log(this.user)
 		this.trailer=[]; 
 		this.movie=[];
 		this.id=undefined;
@@ -74,6 +75,7 @@ angular.module('myapp',[])
               	})
               }
           })
+
 				$.ajax({
 				async:false,
 				url: "https://api.themoviedb.org/3/movie/"+x.id+"/recommendations?api_key=8081cb4893843ff570504c531dd99fe9&language=en-US&page=1",
@@ -96,6 +98,7 @@ angular.module('myapp',[])
 				})
 		    console.log("suggested movie : ", x.recomendedMovie)
 			
+
 		}
 	},	
 	templateUrl:'public/templates/app.html'

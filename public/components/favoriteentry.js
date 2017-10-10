@@ -21,6 +21,3 @@
   },
 	templateUrl:'public/templates/favoriteentry.html'
 });
-
-
-

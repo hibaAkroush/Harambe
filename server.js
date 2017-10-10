@@ -27,7 +27,6 @@ app.use(session({
 
 app.get('/', util.checkUser, function(req, res) {
   res.sendFile(__dirname+'/index.html');
-
 });
 
 app.get('/login', function(req, res) {
@@ -41,7 +40,6 @@ app.get('/session',function(req,res){
 app.post('/login', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
-
   User.findOne({ username: username })
   .exec(function(err, user) {
     if (!user) {
@@ -97,7 +95,7 @@ app.get('/signUp',function(req, res) {
 app.post('/signUp', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
-
+  
   User.findOne({ username: username })
   .exec(function(err, user) {
     if (!user) {
@@ -120,95 +118,6 @@ app.post('/signUp', function(req, res) {
 });
 
 
-//.............................................................................
-//add new for watched list 
-//---1---handling post request for movie data
-app.post('/add2',function(req,res){
- 
-  if(req.session.username){ 
-  //prepare record 
-  var record = new Movie ({
-    id:req.body.id,
-    title:req.body.title,
-    poster_path:req.body.poster_path
-  });
-
-//add it to database
-record.save( function(error, newMovie){
-  var username = req.session.username;
-  if(error){
-    throw error;
-  }
-
-  User.findOne({username: username} , function(err, user){
-    if (err)
-     console.log('error in find =========>', err)
-
-      user.watchlist.push(newMovie._id);
-     console.log('user in find =========>', user.watchlist)
-     User.findOneAndUpdate({username: username} ,{watchlist: user.watchlist},function(err , updated){
-      if(err)
-        console.log(err);
-      else{
-        console.log('updated---------------> ',updated)
-      }
-    })
-   });
-}); 
-console.log('added')
-  res.send('done');
-}
-else // if the user not logged in
-{
-  console.log ('>>>>>>>>>> rejected');
-  res.redirect('/login')
-}
-});
-
-
-
-
-
-//---2---get data from 
-app.get('/watchedlist',function(req,res){
-  if (req.session.username){
-    res.sendFile(__dirname+'/views/watchedlist.html')            
-  }
-  else
-    res.redirect('/login')
-})
-
-
-//---3---fetch data from database
-app.get('/watched', function(req,res){
-  
-  console.log('hi from watched')
-  User.find({username:req.session.username},"watchlist",function(err,newMovie){
-    if(err)
-      throw err;
-    console.log(newMovie[0].watchlist)
-    var watchedarr=[];
-     for (var i=0;i<newMovie[0].watchlist.length;i++){
-        Movie.find({_id:newMovie[0].watchlist[i]},function(err,result){
-        if(err)
-          throw err;
-        console.log('hiiiiiiiiiiii  from watched')
-        console.log(result)
-        watchedarr.push(result[0])
-      })
-     }
-     
-     setTimeout(function(){
-        console.log('result')
-        console.log(watchedarr)
-        res.send(JSON.stringify(watchedarr))
-     }, 100);
-     
-  })
- 
-
-})
-//................................................................................
 
 //handling post request for movie data
 app.post('/add',function(req,res){
@@ -253,7 +162,23 @@ record.save( function(error, newMovie){
   }
 });
 
-
+app.get('/movie-exists', (req, res) => {
+  var id = req.url.split('?')[1];
+  var username = req.session.username;
+  User.find({username: username}, (err, user) => {
+    if(err) {
+      console.log('error in exists find ==========>', err);
+      throw err;
+    }
+    var index = user[0].movies.indexOf(id);
+    if(index>-1) {
+      res.end('exist');
+    }
+    else {
+      res.end('not');
+    }
+  });
+});
 
 
 app.delete('/favorite', (req, res) => {
@@ -359,4 +284,3 @@ module.exports = app;
 //    console.log("record added");
 //     }
 // });
-

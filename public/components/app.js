@@ -28,19 +28,18 @@ angular.module('myapp',[])
 
 		})
 		    console.log("now showing in theaters : ",x.list)
-
 		this.user=''
 		 $.ajax({
-              		async:false,
-              		url: "http://127.0.0.1:8080/session",
-              		cache: false,
-              		dataType: 'json',
-              		success: function(user){
-              			//console.log(user);
-              			x.user=user;
-              		}
-              	});
-		//console.log(this.user)
+			async:false,
+			url: "http://127.0.0.1:8080/session",
+			cache: false,
+			dataType: 'json',
+			success: function(user){
+				console.log(user);
+				x.user=user;
+			}
+        });
+		console.log(this.user)
 		this.trailer=[]; 
 		this.movie=[];
 		this.id=undefined;
@@ -76,8 +75,6 @@ angular.module('myapp',[])
               	})
               }
           })
-			
-			
 		}
 	},	
 	templateUrl:'public/templates/app.html'

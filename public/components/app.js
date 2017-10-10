@@ -73,10 +73,8 @@ angular.module('myapp',[])
               			console.log(x.trailer)
               		}
               	})
-              }
-          })
-
-				$.ajax({
+        ////////////hiba////////////////////////////////
+        $.ajax({
 				async:false,
 				url: "https://api.themoviedb.org/3/movie/"+x.id+"/recommendations?api_key=8081cb4893843ff570504c531dd99fe9&language=en-US&page=1",
 				cache: false,
@@ -96,7 +94,11 @@ angular.module('myapp',[])
 				}
 
 				})
-		    console.log("suggested movie : ", x.recomendedMovie)
+		        console.log("suggested movie : ", x.recomendedMovie)
+		        /////////////hiba/////////////////////////////
+              }
+          })
+
 			
 
 		}

@@ -6,5 +6,4 @@ angular.module('myapp')
   	recomendedMovie: '<'
   },
   templateUrl: 'public/templates/list.html'
-
 })

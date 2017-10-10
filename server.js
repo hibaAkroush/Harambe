@@ -40,7 +40,6 @@ app.get('/session',function(req,res){
 app.post('/login', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
-
   User.findOne({ username: username })
   .exec(function(err, user) {
     if (!user) {
@@ -96,7 +95,7 @@ app.get('/signUp',function(req, res) {
 app.post('/signUp', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
-
+  
   User.findOne({ username: username })
   .exec(function(err, user) {
     if (!user) {
@@ -163,7 +162,23 @@ record.save( function(error, newMovie){
   }
 });
 
-
+app.get('/movie-exists', (req, res) => {
+  var id = req.url.split('?')[1];
+  var username = req.session.username;
+  User.find({username: username}, (err, user) => {
+    if(err) {
+      console.log('error in exists find ==========>', err);
+      throw err;
+    }
+    var index = user[0].movies.indexOf(id);
+    if(index>-1) {
+      res.end('exist');
+    }
+    else {
+      res.end('not');
+    }
+  });
+});
 
 
 app.delete('/favorite', (req, res) => {

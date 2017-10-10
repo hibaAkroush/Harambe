@@ -5,5 +5,4 @@ angular.module('myapp')
   	trailer:'<'
   },
   templateUrl: 'public/templates/list.html'
-
 })

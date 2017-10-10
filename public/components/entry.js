@@ -1,8 +1,9 @@
 angular.module('myapp')
 .component('entry',{
-	controller:function(){
+	controller:function() {
 		var session=undefined;
-		this.favorite=function(id,title,poster_path){
+		this.exists = false;
+		this.favorite=function(id,title,poster_path) {
 			//prepare object to send it to node server
 			var obj={id:id,title:title,poster_path:poster_path};
 			//checking for username
@@ -14,7 +15,7 @@ angular.module('myapp')
 				success: function(user){
 					session=user;
 				}
-			   });
+			});
 		// we need to move this inside success of previous ajax request
 			console.log(session)
 			if(session===undefined || session===null){
@@ -29,9 +30,21 @@ angular.module('myapp')
              });
              alert('added to favorite')
 			}
+        }
+		
+		this.$onInit = function() {
+			$.ajax({
+				async:false,
+				url: "http://127.0.0.1:8080/movie-exists?" + this.movie._id,
+				cache: false,
+				dataType: 'json',
+				success: function(exists) {
+				if(exists)this.exists = exists;
+				 console.log(exists);
+				}
+			});
 		}
-			
-	},
+    },
     bindings:{
     	movie:'<'
     },

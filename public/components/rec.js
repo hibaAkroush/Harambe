@@ -1,5 +1,8 @@
 angular.module('myapp')
-.component('entry',{
+.component('rec',{
 	controller:function(){
-		console.log("hooo")
+		console.log("hiiiiiiiii")
+},
+  templateUrl: 'public/templates/rec.html'
+
 });

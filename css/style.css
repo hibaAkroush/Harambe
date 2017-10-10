@@ -1,0 +1,291 @@
+input[type=text], input[type=password] {
+   width: 100%;
+   padding: 12px 20px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   box-sizing: border-box;
+}
+
+
+
+   button:hover {
+       opacity: 0.8;
+   }
+
+   /* Extra styles for the cancel button */
+   .cancelbtn {
+       float: right;
+       width: auto;
+       padding: 10px 18px;
+       background:  black ;
+       color: white;
+       /*background-color: #f44336 ;*/
+        border-radius: 25px;
+   }
+
+   .submitbtn {
+       width: auto;
+       padding: 10px 18px;
+       background:  black ;
+       color: white;
+       /*background-color: #f44336 ;*/
+        border-radius: 25px;
+   }
+
+  
+.imgcontainer {
+   text-align: center;
+   margin: 24px 0 12px 0;
+   position: relative;
+}
+
+img.avatar {
+   width: 40%;
+   border-radius: 50%;
+}
+
+.container {
+   padding: 16px;
+}
+
+span.psw {
+   float: right;
+   padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+   display: none; /* Hidden by default */
+   position: fixed; /* Stay in place */
+   z-index: 1; /* Sit on top */
+   left: 0;
+   top: 0;
+   width: 100%; /* Full width */
+   height: 100%; /* Full height */
+   overflow: auto; /* Enable scroll if needed */
+   background-color: rgb(0,0,0); /* Fallback color */
+   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+   padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+   background-color: #fefefe ;
+   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+   border: 1px solid #888;
+   width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+   position: absolute;
+   right: 25px;
+   top: 0;
+   color: #363333;
+   font-size: 35px;
+   font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+   color: red;
+   cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+   -webkit-animation: animatezoom 0.6s;
+   animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+   from {-webkit-transform: scale(0)}
+   to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+   from {transform: scale(0)}
+   to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+   span.psw {
+    display: block;
+    float: none;
+}
+.cancelbtn {
+    width: 100%;
+}
+}
+
+img:hover {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s; 
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite; 
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+/*****************************************************************/
+
+body{
+   font-family: Arial,Helvtica,sans-serif;
+   font-size: 15px;
+   line-height: 1.5;
+   /* font: 15px/1.5 Arial,Helvtica,sans-serif;*/   /*the same of the above*/
+   padding: 0;
+   margin: 0;
+}
+
+/* Global */
+.container {
+   width: 80%;
+   margin: auto;
+   overflow: hidden;
+    background-color: #000d1a;
+
+   }
+   .container1 {
+
+       width: 100%;
+       margin-left: 0;
+       overflow: hidden;
+       background-color:   #00802b;*/
+   }
+    
+
+   ul{
+       margin: 0;
+       padding: 0;
+   }
+
+   /* Header */
+
+   header{
+       background: #35424a ;
+       color: #ffffff ;
+       padding-top: 30px;
+       border-bottom: #ff9900 3px solid ;
+   }
+   header a {
+       color: #ffffff ;
+       text-decoration: none;
+       /*text-transform: uppercase;*/
+       font-size: 16px;
+   }
+   header li {
+       float: left;
+       display: inline;
+       padding: 0 20px 0 20px ;  /*(top right bottom left)*/
+   }
+
+   header #branding {
+       float: left;
+   }
+
+   header #branding h1{
+       margin: 0;
+   }
+
+   header nav {
+    float: right;
+    margin-top: 10px;
+}
+
+header .highlight ,header .current a {
+   color: #ff9900 ;
+   font-weight: bold;
+}
+
+header a:hover{
+   color: #cccccc ;
+   font-weight: bold;
+}
+
+/* showcase*/
+#showcase{
+   min-height: 400px;
+   background:url('../image/book2.jpg') no-repeat 0 ;  /*(0 for x axis)*/
+   text-align: left ;
+   color: #ffffff ;
+}
+
+#showcase h1{
+   margin-top: 100px;
+   font-size: 55px;
+   margin-bottom: 10px;
+}
+
+#showcase p{
+   margin-top: 100px;
+font-size: 50px;
+}
+
+
+/* newsletter */
+
+#newsletter{
+   padding: 15px;
+   color: #ffffff ;
+   background :#35424a ;
+   margin-left: 0;
+}
+
+#newsletter h1{
+   float: left;
+}
+
+#newsletter form {
+   float: right;
+   margin-top: 15px;
+   width: 80%;
+}
+#newsletter input[type='text'] {
+   padding: 4px;
+   height: 30px;
+   width: 100%;
+}
+
+/* Books */
+#books{
+   margin-top: 20px;
+}
+
+#books .book {
+   float: left;
+   width: 30%;
+   padding: 10px;
+   text-align: center;
+}
+
+#books .book img{
+   width: 90px;
+}
+
+
+
+
+/* footer */
+
+footer{
+   padding: 20px;
+   margin-top: 20px;
+   color: #E16428 ;
+   background-color: #363333 ;
+   text-align: center;
+   margin-bottom: 4px;
+}

@@ -27,6 +27,7 @@ app.use(session({
 
 app.get('/', util.checkUser, function(req, res) {
   res.sendFile(__dirname+'/index.html');
+
 });
 
 app.get('/login', function(req, res) {
@@ -46,23 +47,41 @@ app.post('/login', function(req, res) {
     if (!user) {
       res.sendFile(__dirname+'/views/login.html');
     } else {
-
       if(password==user.password){
         req.session.username = user.username;
-        console.log('--------------------> login ', req.session.username)
+        // console.log('--------------------> login ', req.session.username)
         res.sendFile(__dirname+'/index.html');
       }
       else{
         res.sendFile(__dirname+'/Msg.html');
         console.log('Wrong Password .. Try Again');
      }
-
    }
- });
-
+  });
 });
 
 
+
+app.post('/removeFromFav', (req, res) => {
+  if(req.session.username) {
+    var username = req.session.username;
+  }
+  else {
+    console.log('=========================> no username')
+  }
+  User.findOne({username: username}, (err, user) => {
+    if(err) {
+      console.log('=======================> error in find' + err);      
+    }
+    var index = user.movies.indexOf(req.body._id);
+    user.movies.splice(index,1);
+    User.findOneAndUpdate({username: username}, {movies: user.movies}, (err, newuser) => {
+      if(err) {
+        console.log('=======================> error in update ' + err);
+      }
+    });
+  });
+});
 
 app.get('/logout', function(req, res){
     req.session.username = null;
@@ -101,93 +120,6 @@ app.post('/signUp', function(req, res) {
 });
 
 
-
-//---1---handling post request for movie data
-app.post('/add',function(req,res){
- 
-  if(req.session.username){ 
-  //prepare record 
-  var record = new Movie ({
-    id:req.body.id,
-    title:req.body.title,
-    poster_path:req.body.poster_path
-  });
-
-//add it to database
-record.save( function(error, newMovie){
-  var username = req.session.username;
-  if(error){
-    throw error;
-  }
-
-  User.findOne({username: username} , function(err, user){
-    if (err)
-     console.log('error in find =========>', err)
-
-      user.movies.push(newMovie._id);
-     console.log('user in find =========>', user.movies)
-     User.findOneAndUpdate({username: username} ,{movies: user.movies},function(err , updated){
-      if(err)
-        console.log(err);
-      else{
-        console.log('updated---------------> ',updated)
-      }
-    })
-   });
-}); 
-console.log('added')
-  res.send('done');
-}
-else // if the user not logged in
-{
-  console.log ('>>>>>>>>>> rejected');
-  res.redirect('/login')
-}
-});
-
-
-
-
-
-//---2---get data  
-app.get('/favoritelist',function(req,res){
-  if (req.session.username){
-    res.sendFile(__dirname+'/views/favoritelist.html')            
-  }
-  else
-    res.redirect('/login')
-})
-
-
-//---3---fetch data from database
-app.get('/favorit', function(req,res){
-  
-  console.log('hi ---------- from favorit ')
-  User.find({username:req.session.username},"movies",function(err,newMovie){
-    if(err)
-      throw err;
-    console.log(newMovie[0].movies)
-    var favoritarr=[];
-     for (var i=0;i<newMovie[0].movies.length;i++){
-        Movie.find({_id:newMovie[0].movies[i]},function(err,result){
-        if(err)
-          throw err;
-        console.log('hiiiiiiiiiiii  from the favorit')
-        console.log(result)
-        favoritarr.push(result[0])
-      })
-     }
-     
-     setTimeout(function(){
-        console.log('result')
-        console.log(favoritarr)
-        res.send(JSON.stringify(favoritarr))
-     }, 500);
-     
-  })
- 
-
-})
 //.............................................................................
 //add new for watched list 
 //---1---handling post request for movie data
@@ -277,6 +209,114 @@ app.get('/watched', function(req,res){
 
 })
 //................................................................................
+
+//handling post request for movie data
+app.post('/add',function(req,res){
+ 
+  if(req.session.username){ 
+  //prepare record 
+  var record = new Movie ({
+    id:req.body.id,
+    title:req.body.title,
+    poster_path:req.body.poster_path
+  });
+
+//add it to database
+record.save( function(error, newMovie){
+  var username = req.session.username;
+  if(error){
+    throw error;
+  }
+
+  User.findOne({username: username} , function(err, user){
+    if (err)
+     console.log('error in find =========>', err)
+
+      user.movies.push(newMovie._id);
+    //  console.log('user in find =========>', user.movies)
+     User.findOneAndUpdate({username: username} ,{movies: user.movies},function(err , updated){
+      if(err)
+        console.log(err);
+      else{
+        // console.log('updated---------------> ',updated)
+      }
+    })
+   });
+}); 
+// console.log('added')
+  res.send('done');
+  }
+  else // if the user not logged in
+  {
+    console.log ('>>>>>>>>>> rejected');
+    res.redirect('/login')
+  }
+});
+
+
+
+
+app.delete('/favorite', (req, res) => {
+  var id = req.url.split('?')[1];
+  var username = req.session.username;
+  User.find({username: username}, (err, user) => {
+    if(err) {
+      console.log('error in delete find ==========>', err);
+      throw err;
+    }
+    var index = user[0].movies.indexOf(id);
+    if(index!==-1) {
+      user[0].movies.splice(index, 1);
+    }
+    User.findOneAndUpdate({username:username}, {movies: user[0].movies}, (err, newUser) => {
+      if(err) {
+        console.log('error in delete findAndUpdate ==========>', err);
+        throw err;
+      }
+      console.log('new user ======>', newUser)
+    });
+  });
+  res.end();
+});
+
+
+app.get('/favoritelist',function(req,res){
+  if (req.session.username) {
+    res.sendFile(__dirname+'/views/favoritelist.html')
+  }
+  else
+    res.redirect('/login')
+});
+
+
+//fetch data from database
+app.get('/favorite', function(req,res){
+  User.find({username: req.session.username}, function(err,user) {
+    if(err)
+      throw err;
+    // console.log(user[0].movies);
+    var favArr=[];
+     for (var i=0;i<user[0].movies.length;i++) {
+        Movie.find({_id:user[0].movies[i]},function(err,result) {
+        if(err)
+          throw err;
+        // console.log('hiiiiiiiiiiii')
+        // console.log('resulting movies arr ============>' + result);
+        favArr.push(result[0])
+      })
+     }
+     
+     setTimeout(function() {
+        // console.log('result')
+        // console.log(favArr)
+        res.send(JSON.stringify(favArr))
+     }, 500);
+     
+  })
+ 
+
+})
+
 app.listen(port,function(err){
   console.log('connected');
 });
@@ -319,16 +359,4 @@ module.exports = app;
 //    console.log("record added");
 //     }
 // });
-
-
-
-
-
-
-
-
-
-
-
-
 

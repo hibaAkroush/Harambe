@@ -20,11 +20,11 @@
 
 	<!-- rrrr -->
 	<!-- thumbnail wrapped in a link -->
-	<a href="#img1">
+	<!-- <a href="#img1">
 		<center> <img src="http://www.clipartbest.com/cliparts/9Tp/enR/9TpenRLTE.svg" height="70"> </center>
 	</a>
-	<!-- lightbox container hidden with CSS -->
-	<a href="#_" class="lightbox" id="img1">
+	<!-lightbox container hidden with CSS -->
+	<!-- <a href="#_" class="lightbox" id="img1">
 		<div id="videoModal" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="false" style="display: block;">
 			<div class="modal-header">
 				<button type="button" class="close full-height" data-dismiss="modal" aria-hidden="true">X</button>
@@ -32,8 +32,8 @@
 			</div>
 			<div class="modal-body"><iframe width="870" height="489" src={{$ctrl.trailer_string}} frameborder="0" allowfullscreen=""></iframe></div>
 			<div class="modal-footer"></div>
-		</div>
-
+		</div> -->
+ 
 		<!-- rrrr-->
 
 
@@ -46,7 +46,7 @@
 		
 
 
-		<nav class="navbar navbar-inverse" style="background-color: #ff9900;">
+		<nav class="navbar navbar-inverse" style="background-color: #ff9900; position: absolute; top: 0%">
 			<div class="container-fluid">
 				<ul class="nav navbar-nav">
 					
@@ -54,7 +54,7 @@
 					<!-- <li><a href="#"> Top Rated </a></li> -->
 					<li><a href="http://127.0.0.1:8080/favoritelist" style="color: black"> Favorite List </a></li>
 					<!-- add new one for to watched list -->
-					<li><a href="http://127.0.0.1:8080/watchedlist"> Watched List </a></li>
+					<li><a href="http://127.0.0.1:8080/watchedlist" style="color: black"> Watched List </a></li>
 					
 					<li><search /></li>
 				</ul>
@@ -78,7 +78,7 @@
 
 	<div>
 		
-		<div class= "col-sm-9" > 
+		<div style="position: relative; top: 50px" class= "col-sm-9" > 
 			<div class="column">
 				<img  src="https://resizing.flixster.com/seUt8hrJfV2xN0vz965KMmJRWsU=/4608x3456/v1.bjsxNjM4MDtqOzE3NDYwOzEyMDA7NDYwODszNDU2" style="width:100%">	
 				<img src="https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ2MTc5NTYwMF5BMl5BanBnXkFtZTgwMTc1NDg5MjE@._V1_UY1200_CR111,0,630,1200_AL_.jpg" style="width:100%">
@@ -116,8 +116,7 @@
 
 		</div>
 
-		<div class="col-sm-3">
-			<app ng-app='myapp' /></div>
+		<div><app ng-app='myapp' /></div>
 
 		</div>
 		<script src="public/components/app.js"></script>

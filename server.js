@@ -41,7 +41,7 @@ app.post('/login', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
 
- User.findOne({ username: username })
+  User.findOne({ username: username })
   .exec(function(err, user) {
     if (!user) {
       res.sendFile(__dirname+'/views/login.html');
@@ -72,7 +72,7 @@ app.post('/removeFromFav', (req, res) => {
   User.findOne({username: username}, (err, user) => {
     if(err) {
       console.log('=======================> error in find' + err);      
-   }
+    }
     var index = user.movies.indexOf(req.body._id);
     user.movies.splice(index,1);
     User.findOneAndUpdate({username: username}, {movies: user.movies}, (err, newuser) => {
@@ -98,7 +98,7 @@ app.post('/signUp', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
 
- User.findOne({ username: username })
+  User.findOne({ username: username })
   .exec(function(err, user) {
     if (!user) {
       var newUser = new User({
@@ -139,11 +139,11 @@ record.save( function(error, newMovie){
   if(error){
     throw error;
   }
-User.findOne({username: username} , function(err, user){
+  User.findOne({username: username} , function(err, user){
     if (err)
      console.log('error in find =========>', err)
 
-  user.watchlist.push(newMovie._id);
+   user.watchlist.push(newMovie._id);
    console.log('user in find =========>', user.watchlist)
    User.findOneAndUpdate({username: username} ,{watchlist: user.watchlist},function(err , updated){
     if(err)
@@ -182,11 +182,11 @@ record.save( function(error, newMovie){
     throw error;
   }
 
- User.findOne({username: username} , function(err, user){
+  User.findOne({username: username} , function(err, user){
     if (err)
      console.log('error in find =========>', err)
 
-  user.movies.push(newMovie._id);
+   user.movies.push(newMovie._id);
     //  console.log('user in find =========>', user.movies)
     User.findOneAndUpdate({username: username} ,{movies: user.movies},function(err , updated){
       if(err)
@@ -262,13 +262,13 @@ app.get('/favorite', function(req,res){
       })
     }
     
-   setTimeout(function() {
+    setTimeout(function() {
         // console.log('result')
         // console.log(favArr)
         res.send(JSON.stringify(favArr))
       }, 500);
     
- })
+  })
   
 
 })
@@ -288,7 +288,7 @@ module.exports = app;
 app.get('/watchedlist',function(req,res){
   if (req.session.username){
     res.sendFile(__dirname+'/views/watchedlist.html')            
- }
+  }
   else
     res.redirect('/login')
 })
@@ -298,29 +298,29 @@ app.get('/watchedlist',function(req,res){
 app.get('/watched', function(req,res){
   
  console.log('hi from watched')
-  User.find({username:req.session.username},"watchlist",function(err,newMovie){
-    if(err)
-      throw err;
-    console.log(newMovie[0].watchlist)
-    var watchedarr=[];
-    for (var i=0;i<newMovie[0].watchlist.length;i++){
-      Movie.find({_id:newMovie[0].watchlist[i]},function(err,result){
-        if(err)
-          throw err;
-        console.log('hiiiiiiiiiiii  from watched')
-        console.log(result)
-        watchedarr.push(result[0])
-      })
-    }
-    
-   setTimeout(function(){
-      console.log('result')
-      console.log(watchedarr)
-      res.send(JSON.stringify(watchedarr))
-    }, 100);
-    
- })
+ User.find({username:req.session.username},"watchlist",function(err,newMovie){
+  if(err)
+    throw err;
+  console.log(newMovie[0].watchlist)
+  var watchedarr=[];
+  for (var i=0;i<newMovie[0].watchlist.length;i++){
+    Movie.find({_id:newMovie[0].watchlist[i]},function(err,result){
+      if(err)
+        throw err;
+      console.log('hiiiiiiiiiiii  from watched')
+      console.log(result)
+      watchedarr.push(result[0])
+    })
+  }
   
+  setTimeout(function(){
+    console.log('result')
+    console.log(watchedarr)
+    res.send(JSON.stringify(watchedarr))
+  }, 100);
+  
+})
+ 
 
 })
 //................................................................................
@@ -335,7 +335,7 @@ app.post('/removeFromFav', (req, res) => {
  User.findOne({username: username}, (err, user) => {
    if(err) {
      console.log('=======================> error in find' + err);      
-  }
+   }
    var index = user.movies.indexOf(req.body._id);
    user.movies.splice(index,1);
    User.findOneAndUpdate({username: username}, {movies: user.movies}, (err, newuser) => {

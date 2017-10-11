@@ -2,7 +2,8 @@ angular.module('myapp')
 .component('list',{
   bindings:{
   	movie:  '<',
-  	trailer:'<'
+  	trailer:'<',
+  	recomendedMovie: '<'
   },
   templateUrl: 'public/templates/list.html'
 

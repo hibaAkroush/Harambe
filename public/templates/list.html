@@ -1,12 +1,15 @@
- <div>
- 	<entry
- 		movie="movie"
- 	 ng-repeat="movie in $ctrl.movie"
- 	 />
+<div>
+     <entry
+         movie="movie"
+      ng-repeat="movie in $ctrl.movie"
+      />
  </div>
  <div>
- 	<trailer
- 	 trailer="trailer"
- 	 ng-repeat="trailer in $ctrl.trailer"
- 	 />
+     <rec recomendedMovie = "$ctrl.recomendedMovie"></rec>
+ </div>
+ <div>
+     <trailer
+      trailer="trailer"
+      ng-repeat="trailer in $ctrl.trailer"
+      />
  </div>

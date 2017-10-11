@@ -1,6 +1,3 @@
-// 888888888888888888888888888888888888888888888888888888888888888888888
-
-
 var request = require('request');
 var express=require('express');
 var bodyParser=require('body-parser');
@@ -365,8 +362,3 @@ app.get('/movie-exists', (req, res) => {
    }
  });
 });
-
-
-
-
-

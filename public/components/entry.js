@@ -1,5 +1,3 @@
-//888888888888888888888888888888888888888888888888888888888888888888888
-
 angular.module('myapp')
 .component('entry',{
   controller:function(){
@@ -81,4 +79,3 @@ angular.module('myapp')
   },
   templateUrl:'public/templates/entry.html'
 });
-
